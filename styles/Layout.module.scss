@@ -1,0 +1,18 @@
+.nav{
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+.footer{
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,57 @@
+.container {
+  padding: 0 2rem;
+}
+
+.main{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  // background-color: rgb(181, 210, 236);
+  .airport{
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    div{
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    p{
+      text-align: center;
+    }
+  }
+  .ticket{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    :nth-child(n){
+      margin: 1rem;
+    }
+  }
+
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
