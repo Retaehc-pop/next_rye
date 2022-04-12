@@ -68,7 +68,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-const airport: NextPage = ({ airports,departures,destinations }: { airports: Airport,departures:Flight[],destinations:Flight[] }) => {
+const Airport: NextPage = ({ airports,departures,destinations }: { airports: Airport,departures:Flight[],destinations:Flight[] }) => {
   const [airport, setAirport] = useState<Airport>(airports);
   const [departure, setDeparture] = useState<Flight[]>(departures);
   const [destination, setDestination] = useState<Flight[]>(destinations);
@@ -78,7 +78,7 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
     const date = new Date(prismadate);
     const hour = date.getHours();
     const minute = date.getMinutes();
-    return `${hour}:${minute}`;
+    return `${(("0"+hour).slice(-2))}:${(("0"+minute).slice(-2))}`;
   }
   const section = () =>{
     if(isDepart){
@@ -145,4 +145,4 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
     </>
   );
 };
-export default airport;
+export default Airport;
