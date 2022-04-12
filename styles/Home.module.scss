@@ -8,19 +8,20 @@
   padding-top: 3rem;
   background-color: #E5E3C9;
   color:#58481c;
-  @media (max-width: 600px) {
-    .grid {
-      width: 100%;
-      flex-direction: column;
-    }
-  }
+  
   .title {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     line-height: 1.15;
     font-size: 4rem;
     text-align: center;
+    @media (max-width: 600px) {
+    
+      flex-direction: column;
+    }
   }
   .icon{
     width: 50px;
@@ -34,6 +35,9 @@
     height: auto;
     display: grid;
     grid-template-columns: repeat(5,1fr);
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2,1fr);
+    }
     div{
       height: auto;
       width: 100%;
@@ -66,10 +70,16 @@
       align-items: center;
       justify-content: center;
       width: 30%;
+      @media (max-width: 600px) {
+        flex-direction: column;
+      }
     }
     input{
       height:2rem;
       width: 50%;
+      @media (max-width: 600px) {
+        width: 100%;
+      }
     }
     h3{
       border-radius:25px;

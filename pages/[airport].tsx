@@ -73,6 +73,13 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
   const [departure, setDeparture] = useState<Flight[]>(departures);
   const [destination, setDestination] = useState<Flight[]>(destinations);
   const [isDepart,setIsDepart] = useState<boolean>(true);
+
+  const formatDate = (prismadate) =>{
+    const date = new Date(prismadate);
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    return `${hour}:${minute}`;
+  }
   const section = () =>{
     if(isDepart){
       return departure.map(flight=>(
@@ -82,7 +89,7 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
           <p>{flight.gate}</p>
           <Link href={`/${flight.departureId}`}>{flight.departureId}</Link>
           <Link href={`/${flight.destinationId}`}>{flight.destinationId}</Link>
-          <p>{flight.date.toString()}</p>
+          <p>{formatDate(flight.date)}</p>
           <p>{flight.price}</p>
         </div>
       ))
