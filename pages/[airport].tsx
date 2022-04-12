@@ -4,11 +4,24 @@ import Head from "next/head";
 import { PrismaClient, Airport,Flight } from "@prisma/client";
 import { useState } from "react";
 import styles from "../styles/Airport.module.scss";
-import Link from "next/link";
-
+// import Link from "next/link";
+import { useRouter } from "next/router";
 
 const prisma = new PrismaClient();
 
+function Link({ children, href }){ 
+  const router = useRouter();
+  const handleClick = (e) => {
+    e.preventDefault()
+    router.push(href).then(()=>location.reload())
+  }
+  return (
+    <a href={href} onClick={handleClick}>
+      {children}
+    </a>
+  )
+
+}
 export async function getStaticPaths() {
   const allAirport = await prisma.airport.findMany({
     select: {
@@ -50,7 +63,7 @@ export async function getStaticProps({ params }) {
     props: {
       airports: airportData,
       departures: departure,
-      destinations: destinationData
+      destinations: destination
     },
   };
 }
@@ -59,7 +72,35 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
   const [airport, setAirport] = useState<Airport>(airports);
   const [departure, setDeparture] = useState<Flight[]>(departures);
   const [destination, setDestination] = useState<Flight[]>(destinations);
-  console.log(departure);
+  const [isDepart,setIsDepart] = useState<boolean>(true);
+  const section = () =>{
+    if(isDepart){
+      return departure.map(flight=>(
+        <div key={flight.id}>
+          <Link href={`/flight/${flight.name}`}>{flight.name}</Link>
+          <p>{flight.airline}</p>
+          <p>{flight.gate}</p>
+          <Link href={`/${flight.departureId}`}>{flight.departureId}</Link>
+          <Link href={`/${flight.destinationId}`}>{flight.destinationId}</Link>
+          <p>{flight.date.toString()}</p>
+          <p>{flight.price}</p>
+        </div>
+      ))
+    }
+    else{
+      return destination.map(flight=>(
+        <div key={flight.id}>
+          <Link href={`/flight/${flight.name}`}>{flight.name}</Link>
+          <p>{flight.airline}</p>
+          <p>{flight.gate}</p>
+          <Link href={`/${flight.departureId}`}><p>{flight.departureId}</p></Link>
+          <Link href={`/${flight.destinationId}`}><p>{flight.destinationId}</p></Link>
+          <p>{flight.date.toString()}</p>
+          <p>{flight.price}</p>
+        </div>
+      ))
+    }
+  }
   return (
     <>
       <Head>
@@ -73,10 +114,14 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
             <h1>{airport.name}</h1>
             <h2>{airport.city},{airport.country}</h2>
           </section>
+          <span className={styles.button}>
+            <button className={isDepart? styles.selected:styles.notselected} onClick={()=>setIsDepart(true)}>Departure</button>
+            <button className={isDepart? styles.notselected:styles.selected} onClick={()=>setIsDepart(false)}>Arrival</button>
+          </span>
           <section className={styles.container}>
             <div className={styles.flight}>
-              <h1>Departures</h1>
-              <div>
+              <h1>{isDepart?"Departures":"Arrival"}</h1>
+              <div className={styles.title}>
                 <p>Flight no.</p>
                 <p>Airline</p>
                 <p>Gate</p>
@@ -85,30 +130,8 @@ const airport: NextPage = ({ airports,departures,destinations }: { airports: Air
                 <p>Time</p>
                 <p>Price</p>
               </div>
-              {
-                departure.map(flight=>(
-                  <div key={flight.id}>
-                    <Link href={`/flight/${flight.name}`}>{flight.name}</Link>
-                    <p>{flight.airline}</p>
-                    <p>{flight.gate}</p>
-                    <Link href={`/${flight.departureId}`}><p>{flight.departureId}</p></Link>
-                    <Link href={`/${flight.destinationId}`}><p>{flight.destinationId}</p></Link>
-                    <p>{flight.date.toString()}</p>
-                    <p>{flight.price}</p>
-                  </div>
-                ))
-              }
+              {section()}
             </div>
-            {/* <div className={styles.flight}>
-              <h1>Destinations</h1>
-              {
-                departure.map(flight=>(
-                  <div key={flight.id}>
-                    <h3>{flight.gate}</h3>
-                  </div>
-                ))
-              }
-            </div> */}
           </section>
         </main>
       </Layout>

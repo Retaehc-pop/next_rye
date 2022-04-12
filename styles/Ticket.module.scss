@@ -5,7 +5,62 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  span{
-    display: flex;
+  background-color: #E5E3C9;
+  color:#58481c;
+  section{
+    min-width: 60vh;
+    
+    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    color: rgba(216, 195, 36, 0.933);
+    border-radius: 25px;
+    background-color: #5B7DB1;
+    @media screen and (max-width: 600px){
+      min-width: 40vh;
+    }
+    div{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
+    span{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      p{
+        color:#eeee;
+      }
+    }
+    .airline{
+      grid-area: 1 / 1 / 2 / 4;
+    }
+    .departure{
+      grid-area: 2 / 1 / 4 / 2;
+    }
+    .icon{
+      grid-area: 2 / 2 / 4 / 3;
+      color:#eeee;
+      svg{
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .destination{
+      grid-area: 2 / 3 / 4 / 4;
+    }
+    .info{
+      grid-area: 4 / 1 / 5 / 4;
+    }
+    .price{
+      grid-area: 5 / 3 / 6 / 4;
+    }
+    .status{
+      grid-area: 5 / 1 / 6 / 3;
+    }
   }
 }

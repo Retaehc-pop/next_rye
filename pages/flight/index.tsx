@@ -16,8 +16,10 @@ export default function Flight(){
     <Layout>
       <main className={styles.main}>
         <h1>Ticket</h1>
-        <input value={search} onChange={e=>setSearch(e.target.value)}/>
-        <h3><Link href={`/flight/${search}`}>Search</Link></h3>
+        <span>
+          <input value={search} onChange={e=>setSearch(e.target.value)}/>
+          <h3><Link href={`/flight/${search}`}>Search</Link></h3>
+        </span>
       </main>
     </Layout>
     </>

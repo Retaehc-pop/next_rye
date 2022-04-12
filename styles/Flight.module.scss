@@ -5,4 +5,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #E5E3C9;
+  color:#58481c;
+  :nth-child(n){
+    margin: 1rem;
+  }
+  span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+  }
+  input{
+    height:2rem;
+    width: 50%;
+  }
+  h3{
+    border-radius:25px;
+    border: 0.1rem solid;
+    border-color:#557C55;
+    color:#eeee;
+    background-color:#58481c;
+    padding: 0.5rem 1rem;
+  }
 }
