@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
-import { PrismaClient, Airport} from '@prisma/client'
+import type { NextPage,GetServerSideProps } from 'next'
+import { Airport} from '@prisma/client'
 import { useState } from 'react';
 import Layout from '../components/layout'
 import Head from 'next/head'
@@ -8,19 +8,12 @@ import Link from 'next/link'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
-const prisma = new PrismaClient()
-
-export async function getServerSideProps(){
-  const airport= await prisma.airport.findMany();
-  
-  return {
-    props: {
-      airports: airport
-    }
-  }
+export const getServerSideProps:GetServerSideProps = async () =>{
+  const res = await fetch(`http://localhost:3000/api/airports`,{method:'GET'})
+  const data = await res.json()
+  return { props:{airports:data} }
 }
-
-export default function Home ({ airports }:{airports: Airport[]}) {
+const Home:NextPage = ({ airports }:{airports: Airport[]}) => {
   const [airport, setAirport] = useState<Airport[]>(airports);
   const [search, setSearch] = useState<string>('');
   return (
@@ -40,7 +33,7 @@ export default function Home ({ airports }:{airports: Airport[]}) {
           <section className={styles.airport}>
           {
             airport.map(airport => (
-                <Link href={`/${airport.name}`} key={airport.id}>
+                <Link href={`/${airport.name}`} key={airport.id} passHref>
                   <div>
                     <h3>{airport.name}</h3>
                     <p>{airport.city}, {airport.country}</p>
@@ -61,3 +54,5 @@ export default function Home ({ airports }:{airports: Airport[]}) {
     </div>
   )
 }
+
+export default Home;

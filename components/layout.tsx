@@ -9,7 +9,7 @@ export default function Layout({children}){
     <>
     <nav className={styles.nav}>
       <h3>RYE Airport</h3>
-      <Link href="/">
+      <Link href="/" passHref>
           <div>
             <FontAwesomeIcon icon={faHome} className={styles.icon}/> 
             <h3>Home</h3>

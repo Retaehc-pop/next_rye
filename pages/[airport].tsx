@@ -1,13 +1,11 @@
 import type { NextPage } from "next";
 import Layout from "../components/layout";
 import Head from "next/head";
-import { PrismaClient, Airport,Flight } from "@prisma/client";
+import { Airport,Flight } from "@prisma/client";
 import { useState } from "react";
 import styles from "../styles/Airport.module.scss";
-// import Link from "next/link";
 import { useRouter } from "next/router";
-
-const prisma = new PrismaClient();
+import prisma from "../lib/prisma";
 
 function Link({ children, href }){ 
   const router = useRouter();
@@ -102,7 +100,7 @@ const Airport: NextPage = ({ airports,departures,destinations }: { airports: Air
           <p>{flight.gate}</p>
           <Link href={`/${flight.departureId}`}><p>{flight.departureId}</p></Link>
           <Link href={`/${flight.destinationId}`}><p>{flight.destinationId}</p></Link>
-          <p>{flight.date.toString()}</p>
+          <p>{formatDate(flight.date)}</p>
           <p>{flight.price}</p>
         </div>
       ))
