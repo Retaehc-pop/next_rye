@@ -3,25 +3,25 @@ import styles from "../../styles/Ticket.module.scss";
 import Layout from "../../components/layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import {  Flight } from "@prisma/client";
+import { Flight } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlane } from "@fortawesome/free-solid-svg-icons";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(
-    `http://localhost:3000/api/flight/${context.params.name}`,{
-      method: "GET"
-    }
-  );
+  const res = await fetch(`/api/flight/${context.params.name}`, {
+    method: "GET",
+  });
   const flight = await res.json();
-  return { props: {
-    flight: flight
-  }};
+  return {
+    props: {
+      flight: flight,
+    },
+  };
 };
 
 const flightId: NextPage = ({ flight }: { flight: Flight }) => {
   const departure_time = new Date(flight.date);
-  
+
   const updated_time = new Date(flight.updatedAt);
   return (
     <>
