@@ -17,13 +17,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
   return {
     props: {
-      flight: JSON.stringify(flight),
+      flight: JSON.parse(JSON.stringify(flight)),
     },
   };
 };
 
 const flightId: NextPage = ({ flight }: { flight: Flight }) => {
   const departure_time = new Date(flight.date);
+
 
   const updated_time = new Date(flight.updatedAt);
   return (
