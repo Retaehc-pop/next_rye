@@ -5,13 +5,14 @@ import Layout from "../components/layout";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`/api/airports`, { method: "GET" });
-  const data = await res.json();
-  return { props: { airports: data } };
+  const result = await prisma.airport.findMany();
+  return { props: { airports: result } };
 };
 const Home: NextPage = ({ airports }: { airports: Airport[] }) => {
   const [airport, setAirport] = useState<Airport[]>(airports);

@@ -6,15 +6,18 @@ import { GetServerSideProps } from "next";
 import { Flight } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlane } from "@fortawesome/free-solid-svg-icons";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`/api/flight/${context.params.name}`, {
-    method: "GET",
+  const flight = await prisma.flight.findUnique({
+    where: {
+      name: String(context.params.name),
+    },
   });
-  const flight = await res.json();
   return {
     props: {
-      flight: flight,
+      flight: JSON.stringify(flight),
     },
   };
 };
