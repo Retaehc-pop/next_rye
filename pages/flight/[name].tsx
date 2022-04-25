@@ -24,8 +24,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const flightId: NextPage = ({ flight }: { flight: Flight }) => {
   const departure_time = new Date(flight.date);
-
-
   const updated_time = new Date(flight.updatedAt);
   return (
     <>
