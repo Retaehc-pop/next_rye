@@ -23,9 +23,9 @@ model Airport{
 model Flight {
   id            Int @id @default(autoincrement())
   name          String @unique
-  departure     Airport @relation("Departure", fields: [departureId],references: [name])
+  departure     Airport @relation("Departure", fields: [departureId],references: [airportCode])
   departureId   String
-  destination   Airport @relation("Destination", fields: [destinationId],references: [name])
+  destination   Airport @relation("Destination", fields: [destinationId],references: [airportCode])
   destinationId String
   status        String @default("available")
   gate          String 
