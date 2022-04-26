@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
+import React, {useEffect} from "react";
 import styles from "../../styles/Ticket.module.scss";
 import Layout from "../../components/layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { Flight } from "@prisma/client";
+import { Flight, Airport } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlane } from "@fortawesome/free-solid-svg-icons";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { faPlane, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const flight = await prisma.flight.findUnique({
@@ -15,16 +15,40 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       name: String(context.params.name),
     },
   });
+  const flight_data = JSON.parse(JSON.stringify(flight));
+  const destination = await prisma.airport.findUnique({
+    where: {
+      airportCode: flight_data.destinationId,
+    },
+  });
+  const departure = await prisma.airport.findUnique({
+    where: {
+      airportCode: flight_data.departureId,
+    },
+  });
   return {
     props: {
-      flight: JSON.parse(JSON.stringify(flight)),
+      flight: flight_data,
+      destination: destination,
+      departure: departure,
     },
   };
 };
 
-const flightId: NextPage = ({ flight }: { flight: Flight }) => {
+const flightId: NextPage = ({
+  flight,
+  destination,
+  departure,
+}: {
+  flight: Flight;
+  destination: Airport;
+  departure: Airport;
+}) => {
   const departure_time = new Date(flight.date);
+  const date = new Date();
   const updated_time = new Date(flight.updatedAt);
+      
+
   return (
     <>
       <Head>
@@ -33,54 +57,67 @@ const flightId: NextPage = ({ flight }: { flight: Flight }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <main className={styles.main}>
+        <main className={styles.main} data-airway={flight.airline}>
           <section>
-            <span className={styles.airline}>
-              <h1>{flight.airline}</h1>
-            </span>
-            <span className={styles.departure}>
-              <h2>{flight.departureId}</h2>
-            </span>
-            <span className={styles.icon}>
-              <FontAwesomeIcon icon={faPlane} />
-            </span>
-            <span className={styles.destination}>
-              <h2>{flight.destinationId}</h2>
-            </span>
-            <div className={styles.info}>
-              <span>
-                <p>Board</p>
+            <div className={styles.header}>
+              <div>
+                <h1>Boarding pass</h1>
+                <span>
+                <h2>ECONOMY</h2>
+                <p>STATUS : {flight.status} </p>
+                </span>
+              </div>
+              <div>
+                <FontAwesomeIcon
+                  icon={faGlobe}
+                  className={styles.icon}
+                  size="2x"
+                />
+                <h3>{flight.airline}</h3>
+              </div>
+            </div>
+            <div className={styles.detail}>
+              <section>
+                <div>
+                  <p>FLIGHT</p>
+                  <h1>{flight.name}</h1>
+                </div>
+                <div>
+                  <p>PASSENGER</p>
+                  <h1>Rotary Exchange 3350</h1>
+                </div>
+              </section>
+              <section>
+              <div>
+                <p>DATE</p>
+                <h1>
+                  {date.getDate()}/{date.getMonth()}/{date.getFullYear()}
+                </h1>
                 <h3>
                   {("0" + departure_time.getHours()).slice(-2)}:
                   {("0" + departure_time.getMinutes()).slice(-2)}
                 </h3>
-              </span>
-              <span>
-                <p>Gate</p>
-                <h3>{flight.gate}</h3>
-              </span>
-              <span>
-                <p>duration</p>
-                <h3>{flight.duration} hr</h3>
-              </span>
-              <span>
-                <p>Seat</p>
-                <h3>{flight.seat}</h3>
-              </span>
+              </div>
+              <div>
+                <p>BOARDING GATE</p>
+                <h1>{flight.gate}</h1>
+              </div>
+              </section>
+              <section>
+                <div>
+                  <p>FROM</p>
+                  <h2>{flight.departureId}</h2>
+                  <p>{departure.city}, {departure.country}</p>
+                </div>
+                <FontAwesomeIcon icon={faPlane} className={styles.icon}></FontAwesomeIcon>
+                <div>
+                  <p>DEST</p>
+                  <h2>{flight.destinationId}</h2>
+                  <p>{destination.city}, {destination.country}</p>
+
+                </div>
+              </section>
             </div>
-            <span className={styles.status}>
-              <p>
-                {flight.status
-                  ? `updated: ${("0" + updated_time.getHours()).slice(-2)}:${(
-                      "0" + updated_time.getMinutes()
-                    ).slice(-2)}:${("0" + updated_time.getSeconds()).slice(-2)}`
-                  : "cancelled"}
-              </p>
-            </span>
-            <span className={styles.price}>
-              <p>Price</p>
-              <h3>{flight.price}</h3>
-            </span>
           </section>
         </main>
       </Layout>

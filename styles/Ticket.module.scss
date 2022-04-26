@@ -1,66 +1,116 @@
-.main{
-  height:80vh;
+.main {
+  :root{
+    --background-color: #ab2e2e;
+    --color: #000;
+  }
+  [data-airway="Thai Airways"] {
+    --background-color: #ab2e2e;
+    --color: #000;
+  }
+  [data-airway="American Airlines"] {
+    --background-color: #f7f7f7;
+    --color: rgb(0, 8, 231);
+  }
+  min-height: 80vh;
   width: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #E5E3C9;
-  color:#58481c;
-  section{
-    min-width: 60vh;
-    
-    height: 80vh;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    color: rgba(216, 195, 36, 0.933);
-    border-radius: 25px;
-    background-color: #5B7DB1;
-    @media screen and (max-width: 600px){
-      min-width: 40vh;
-    }
-    div{
+  background-color: var(--background-color);
+  color: var(--color);
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .header {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
       width: 100%;
+      padding: 1rem;
+      background-color: var(--background-color);
+      color: var(--color);
+      h1 {
+        font-size: 4rem;
+        margin: 0;
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin: 0;
+        text-decoration: underline;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // align-items: center;
+      }
+      span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      @media screen and (max-width: 600px) {
+        h1 {
+          font-size: 3rem;
+          margin: 0;
+        }
+      }
     }
-    span{
+    .detail {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      p{
-        color:#eeee;
+      width: 50%;
+      padding: 1rem;
+      background-color: var(--background-color);
+      color: var(--color);
+      h1 {
+        font-size: 2rem;
+        margin: 0;
       }
-    }
-    .airline{
-      grid-area: 1 / 1 / 2 / 4;
-    }
-    .departure{
-      grid-area: 2 / 1 / 4 / 2;
-    }
-    .icon{
-      grid-area: 2 / 2 / 4 / 3;
-      color:#eeee;
-      svg{
-        width: 50px;
-        height: 50px;
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        text-decoration: underline;
       }
-    }
-    .destination{
-      grid-area: 2 / 3 / 4 / 4;
-    }
-    .info{
-      grid-area: 4 / 1 / 5 / 4;
-    }
-    .price{
-      grid-area: 5 / 3 / 6 / 4;
-    }
-    .status{
-      grid-area: 5 / 1 / 6 / 3;
+      h4 {
+        font-size: 4.5rem;
+        margin: 0;
+      }
+      p {
+        margin: 0.5;
+      }
+      section {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        padding: 0 1rem;
+        section {
+          flex-direction: column;
+          align-items: baseline;
+        }
+      }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
     }
   }
+}
+.icon {
+  width: 75px;
+  height: 75px;
 }

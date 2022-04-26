@@ -5,15 +5,15 @@ import Layout from "../components/layout";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
+import prisma from "../lib/prisma";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+
 export const getServerSideProps: GetServerSideProps = async () => {
   const result = await prisma.airport.findMany();
   return { props: { airports: result } };
 };
+
 const Home: NextPage = ({ airports }: { airports: Airport[] }) => {
   const [airport, setAirport] = useState<Airport[]>(airports);
   const [search, setSearch] = useState<string>("");
@@ -33,12 +33,10 @@ const Home: NextPage = ({ airports }: { airports: Airport[] }) => {
           <h1> Choose your Airport </h1>
           <section className={styles.airport}>
             {airport.map((airport) => (
-              <Link href={`/${airport.name}`} key={airport.id} passHref>
+              <Link href={`/${airport.airportCode}`} key={airport.id} passHref>
                 <div>
-                  <h3>{airport.name}</h3>
-                  <p>
-                    {airport.city}, {airport.country}
-                  </p>
+                  <h3>{airport.airportCode}</h3>
+                  <p>{airport.city}, {airport.country}</p>
                 </div>
               </Link>
             ))}

@@ -23,12 +23,12 @@ function Link({ children, href }){
 export async function getStaticPaths() {
   const allAirport = await prisma.airport.findMany({
     select: {
-      name: true,
+      airportCode: true,
     },
   });
   const paths = allAirport.map((airport) => {
     return {
-      params: { airport: airport.name },
+      params: { airport: airport.airportCode },
     };
   });
 
@@ -42,17 +42,17 @@ export async function getStaticProps({ params }) {
   const { airport } = params;
   const airportData:Airport = await prisma.airport.findUnique({
     where: {
-      name: airport,
+      airportCode: airport,
     }
   });
   const departureData:Flight[] = await prisma.flight.findMany({
     where:{
-      departureId: airportData.name
+      departureId: airportData.airportCode
     }
   });
   const destinationData:Flight[] = await prisma.flight.findMany({
     where:{
-      destinationId: airportData.name
+      destinationId: airportData.airportCode
     }
   });
   const departure = JSON.parse(JSON.stringify(departureData))
@@ -88,7 +88,6 @@ const Airport: NextPage = ({ airports,departures,destinations }: { airports: Air
           <Link href={`/${flight.departureId}`}>{flight.departureId}</Link>
           <Link href={`/${flight.destinationId}`}>{flight.destinationId}</Link>
           <p>{formatDate(flight.date)}</p>
-          <p>{flight.price}</p>
         </div>
       ))
     }
@@ -101,7 +100,6 @@ const Airport: NextPage = ({ airports,departures,destinations }: { airports: Air
           <Link href={`/${flight.departureId}`}><p>{flight.departureId}</p></Link>
           <Link href={`/${flight.destinationId}`}><p>{flight.destinationId}</p></Link>
           <p>{formatDate(flight.date)}</p>
-          <p>{flight.price}</p>
         </div>
       ))
     }
@@ -133,7 +131,6 @@ const Airport: NextPage = ({ airports,departures,destinations }: { airports: Air
                 <p>Departure</p>
                 <p>Destination</p>
                 <p>Time</p>
-                <p>Price</p>
               </div>
               {section()}
             </div>

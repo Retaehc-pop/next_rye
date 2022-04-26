@@ -1,14 +1,13 @@
 .main{
   position: relative;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: auto;
   padding-top: 3rem;
   background-color: #E5E3C9;
   color:#58481c;
-  height:90vh;
   @media screen and (max-width: 600px){
     height: auto;
   }
