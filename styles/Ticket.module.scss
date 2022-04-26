@@ -3,13 +3,40 @@
     --background-color: #ab2e2e;
     --color: #000;
   }
-  [data-airway="Thai Airways"] {
-    --background-color: #ab2e2e;
-    --color: #000;
+  &[data-airway="Thai Airways"] {
+    --background-color: #ffcc00;
+    --color: #3d1a6e;
   }
-  [data-airway="American Airlines"] {
-    --background-color: #f7f7f7;
-    --color: rgb(153, 154, 169);
+  &[data-airway="American Airlines"] {
+    --background-color: #e5f1fa;
+    --color: #0078d2;
+  }
+  &[data-airway="Nippon Airways"] {
+    --background-color: #eeee;
+    --color: #006ee3;
+  }
+  &[data-airway="Singapore Airlines"] {
+    --background-color: #eeee;
+    --color: #f99f1c;
+  }
+  &[data-airway="Emirates"] {
+    --background-color: #d72027;
+    --color: #eeee;
+  }
+  &[data-airway="Turkish Airlines"] {
+    --background-color: #eeee;
+    --color: #d90000;
+  }
+  &[data-airway="Lufthansa"] {
+    --background-color: #05164d;
+    --color: #ffad00;
+  }
+  &[data-airway="Air Europa"] {
+    --background-color: #2d69e1;
+    --color: #eeee;
+  }&[data-airway="Philippine Airlines"] {
+    --background-color: #64619d;
+    --color: #eeee;
   }
   min-height: 80vh;
   width: auto;
@@ -30,8 +57,8 @@
       align-items: center;
       width: 100%;
       padding: 1rem;
-      background-color: var(--background-color);
-      color: var(--color);
+      background-color: var(--color);
+      color: var(--background-color);
       h1 {
         font-size: 4rem;
         margin: 0;
