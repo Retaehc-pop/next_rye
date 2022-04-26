@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import React, {useEffect} from "react";
 import styles from "../../styles/Ticket.module.scss";
 import Layout from "../../components/layout";
 import Head from "next/head";
