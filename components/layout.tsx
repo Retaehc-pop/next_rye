@@ -8,13 +8,14 @@ export default function Layout({children}){
   return (
     <>
     <nav className={styles.nav}>
-      <h3>RYE Airport</h3>
+      <div>
+        <h3>RYE Airport</h3>
+      </div>
       <Link href="/" passHref>
-          <div>
-            <FontAwesomeIcon icon={faHome} className={styles.icon}/> 
-            <h3>Home</h3>
-          </div>
-          </Link>
+      <div>
+        <FontAwesomeIcon icon={faHome} className={styles.icon}/> 
+      </div>
+      </Link>
       </nav>
       {children}
     <footer className={styles.footer}>
