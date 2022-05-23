@@ -1,0 +1,29 @@
+.main{
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #E5E3C9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  input{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 0 20px;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  h1{
+    margin:0;
+  }
+  section{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
