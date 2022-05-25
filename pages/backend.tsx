@@ -69,9 +69,8 @@ const Backend: NextPage<{flights: Flight[]}> = ({flights}) => {
             method:"PATCH",
             body:JSON.stringify(body),
           }).then(
-            res => alert(res)
+            res => alert(`Successfully updated ${name}`)
           )
-          return 
   }
   function updateSetting(key,value){
     setSetting({
@@ -97,7 +96,7 @@ const Backend: NextPage<{flights: Flight[]}> = ({flights}) => {
             </span>
             <span>
               <h4>Gate</h4>
-              <input value={setting.gate} onChange={(e)=>{updateSetting("gate",e.target.value)}}/>
+              <input value={setting.gate} onChange={(e)=>{updateSetting("gate",e.target.value.toUpperCase())}}/>
             </span>
             <span>
               <h4>Status</h4>

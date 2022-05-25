@@ -7,6 +7,7 @@ import { Flight, Airport } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlane, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import prisma from "../../lib/prisma";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const flight = await prisma.flight.findUnique({
@@ -105,13 +106,13 @@ const flightId: NextPage = ({
               <section>
                 <div>
                   <p>FROM</p>
-                  <h2>{flight.departureId}</h2>
+                  <Link href={`/${flight.departureId}`}><h2>{flight.departureId}</h2></Link>
                   <p>{departure.city}, {departure.country}</p>
                 </div>
                 <FontAwesomeIcon icon={faPlane} className={styles.icon}></FontAwesomeIcon>
                 <div>
                   <p>DEST</p>
-                  <h2>{flight.destinationId}</h2>
+                  <Link href={`/${flight.destinationId}`}><h2>{flight.destinationId}</h2></Link>
                   <p>{destination.city}, {destination.country}</p>
 
                 </div>
