@@ -23,6 +23,9 @@ async function handlePatch(flightName:string | string[],req:NextApiRequest,res:N
   const d = new Date();
   function setDateTime(date:Date, time) {
         const [hour,minute] = time.split(":")
+        date.setDate(29);
+        date.setMonth(5);
+        date.setFullYear(2022);
         date.setHours(parseInt(hour));
         date.setMinutes(parseInt(minute));
         date.setSeconds(0);
@@ -43,6 +46,7 @@ async function handlePatch(flightName:string | string[],req:NextApiRequest,res:N
   )
   return res.status(200).send("ok");
 }
+
 async function handleGet(flightName:string | string[],res:NextApiResponse){
   const flight = await prisma.flight.findUnique({
     where:{
