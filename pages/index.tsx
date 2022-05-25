@@ -47,7 +47,7 @@ const Home: NextPage = ({ airports }: { airports: Airport[] }) => {
               <input
                 value={search}
                 onChange={(e) => {
-                  setSearch(e.target.value);
+                  setSearch(e.target.value.toUpperCase());
                 }}
               />
               <h3>
